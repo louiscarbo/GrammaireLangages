@@ -1,6 +1,11 @@
+#pragma once
+
 #include <string>
 #include "symbole.h"
-#include "automate.h"
+
+class Automate;
+
+using namespace std;
 
 class Etat
 {
