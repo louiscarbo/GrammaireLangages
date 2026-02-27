@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-enum Identificateurs { OPENPAR, CLOSEPAR, PLUS, MULT, INT, FIN, ERREUR };
+enum Identificateurs { OPENPAR, CLOSEPAR, PLUS, MULT, INT, FIN, ERREUR, EXPR };
 
 const string Etiquettes[] = { "OPENPAR", "CLOSEPAR", "PLUS", "MULT", "INT", "FIN", "ERREUR" };
 
@@ -26,4 +26,3 @@ class Entier : public Symbole {
    protected:
       int valeur;
 };
-
