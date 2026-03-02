@@ -1,5 +1,18 @@
 
 #include "automate.h"
+#include "./Etats/E0.h"
+#include "etat.h"
+
+Automate::Automate(Lexer* lexer) : lexer(lexer) {
+    statestack.push_back(new E0());
+}
+
+Automate::~Automate() {
+    for (Etat* e : statestack) {
+        delete e;
+    }
+    statestack.clear();
+}
 
 void Automate::transitionsimple(Symbole *s, Etat *e)
 {
@@ -24,13 +37,29 @@ void Automate::decalage(Symbole *s, Etat *e)
     lexer->Avancer();
 }
 
-bool Automate::run() {
-    bool nextState = true;
-    while (nextState) {
-        Symbole * s = lexer->Consulter();
+Symbole *Automate::popSymbol()
+{
+    Symbole *s = symbolstack.back();
+    symbolstack.pop_back();
+    return s;
+}
 
-        // Il faut maintenant faire appel à la transition sur l'état courant
-        // nextState = ...
+void Automate::popAndDestroySymbol()
+{
+    delete symbolstack.back();
+    symbolstack.pop_back();
+}
+
+bool Automate::run()
+{
+    bool nextState = true;
+    while (nextState)
+    {
+        Symbole *s = lexer->Consulter();
+
+        Etat *currentState = this->statestack.back();
+
+        nextState = currentState->transition(*this, s);
     }
-    return true; // (à adapter selon si on accepte ou si on a une erreur)
+    return true;
 }

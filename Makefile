@@ -1,7 +1,7 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall
+CXXFLAGS = -std=c++17 -Wall -Wextra
 TARGET = grammaire
-SRCS = main.cpp lexer.cpp symbole.cpp
+SRCS = $(wildcard *.cpp) $(wildcard Etats/*.cpp)
 
 $(TARGET): $(SRCS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRCS)
