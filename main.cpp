@@ -4,10 +4,24 @@
 #include "automate.h"
 #include "expr.h"
 
-int main(void) {
-    string chaine("(1+34)*123");
-    Lexer* l = new Lexer(chaine);
-    Automate* automate = new Automate(l);
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+
+    if (argc != 2)
+    {
+        cerr << "Erreur : nombre d'arguments invalide.\n"
+             << "Vous devez entrer exactement une expression arithmétique.\n\n"
+             << "Exemple :\n"
+             << "  " << argv[0] << " \"(1+2)*3\"\n";
+        return 1;
+    }
+
+    string chaine = argv[1];
+
+    Lexer *l = new Lexer(chaine);
+    Automate *automate = new Automate(l);
 
     cout << "Analyse de la chaine : " << chaine << endl;
 
