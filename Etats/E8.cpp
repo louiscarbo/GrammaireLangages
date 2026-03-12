@@ -6,7 +6,7 @@
 #include "../automate.h"
 #include "../exprMult.h"
 
-bool E8::transition(Automate &automate, Symbole *s)
+TransitionResult E8::transition(Automate &automate, Symbole *s)
 {
     switch (*s)
     {
@@ -19,11 +19,11 @@ bool E8::transition(Automate &automate, Symbole *s)
         automate.popAndDestroySymbol();
         Expr* e2 = (Expr*) automate.popSymbol();
         automate.reduction(3, new ExprMult(e2, e1));
-        return true;
+        return TransitionResult::Continue;
     }
     default:
         break;
     }
 
-    return false;
+    return TransitionResult::Error;
 }

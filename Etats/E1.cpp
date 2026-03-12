@@ -4,19 +4,19 @@
 #include "../automate.h"
 #include <iostream>
 
-bool E1::transition(Automate & automate, Symbole * s) {
+TransitionResult E1::transition(Automate & automate, Symbole * s) {
     switch (*s) {
         case PLUS:
             automate.decalage(s, new E4);
-            return true;
+            return TransitionResult::Continue;
         case MULT:
             automate.decalage(s, new E5);
-            return true;
+            return TransitionResult::Continue;
         case FIN:
             cout << "Expression acceptée !" << endl;
-            return false;
+            return TransitionResult::Accept;
         default:
             cout << "Erreur de syntaxe à l'état 1" << endl;
-            return false;
+            return TransitionResult::Error;
     }
 }

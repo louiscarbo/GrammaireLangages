@@ -4,7 +4,7 @@
 #include "../symbole.h"
 #include <iostream>
 
-bool E3::transition(Automate & automate, Symbole * s) {
+TransitionResult E3::transition(Automate & automate, Symbole * s) {
     switch (*s) {
         case PLUS:
         case MULT:
@@ -12,10 +12,10 @@ bool E3::transition(Automate & automate, Symbole * s) {
         case FIN: {
             Entier* s1 = (Entier*) automate.popSymbol();
             automate.reduction(1, new ExprVal(s1->getValeur()));
-            return true;
+            return TransitionResult::Continue;
         }
         default:
             cout << "Erreur de syntaxe à l'état 3" << endl;
-            return false;
+            return TransitionResult::Error;
     }
 }

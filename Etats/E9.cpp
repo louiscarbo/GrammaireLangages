@@ -3,7 +3,7 @@
 #include "../automate.h"
 #include <iostream>
 
-bool E9::transition(Automate & automate, Symbole * s) {
+TransitionResult E9::transition(Automate & automate, Symbole * s) {
     switch (*s) {
         case PLUS:
         case MULT:
@@ -13,10 +13,10 @@ bool E9::transition(Automate & automate, Symbole * s) {
             Symbole* e = automate.popSymbol();
             automate.popAndDestroySymbol();
             automate.reduction(3, e);
-            return true;
+            return TransitionResult::Continue;
         }
         default:
             cout << "Erreur de syntaxe à l'état 9" << endl;
-            return false;
+            return TransitionResult::Error;
     }
 }

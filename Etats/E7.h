@@ -4,5 +4,5 @@ class E7 : public Etat
 {
 public:
     E7() : Etat("E7") {}
-    bool transition(Automate &automate, Symbole *s) override;
+    TransitionResult transition(Automate &automate, Symbole *s) override;
 };

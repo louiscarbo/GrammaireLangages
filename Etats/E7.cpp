@@ -4,7 +4,7 @@
 #include "../exprPlus.h"
 #include <iostream>
 
-bool E7::transition(Automate & automate, Symbole * s) {
+TransitionResult E7::transition(Automate & automate, Symbole * s) {
     switch (*s) {
         case PLUS:
         case CLOSEPAR:
@@ -13,13 +13,13 @@ bool E7::transition(Automate & automate, Symbole * s) {
             automate.popAndDestroySymbol();
             Expr* e2 = (Expr*) automate.popSymbol();
             automate.reduction(3, new ExprPlus(e2, e1));
-            return true;
+            return TransitionResult::Continue;
         }
         case MULT:
             automate.decalage(s, new E5);
-            return true;
+            return TransitionResult::Continue;
         default:
             cout << "Erreur de syntaxe à l'état 7" << endl;
-            return false;
+            return TransitionResult::Error;
     }
 }

@@ -5,25 +5,25 @@
 #include "../automate.h"
 #include <iostream>
 
-bool E4::transition(Automate &automate, Symbole *s)
+TransitionResult E4::transition(Automate &automate, Symbole *s)
 {
     switch (*s)
     {
 
     case INT:
         automate.decalage(s, new E3);
-        return true;
+        return TransitionResult::Continue;
 
     case OPENPAR:
         automate.decalage(s, new E2);
-        return true;
+        return TransitionResult::Continue;
 
     case EXPR:
         automate.transitionsimple(s, new E7);
-        return true;
+        return TransitionResult::Continue;
 
     default:
         cout << "Erreur de syntaxe à l'état 4" << endl;
-        return false;
+        return TransitionResult::Error;
     }
 }

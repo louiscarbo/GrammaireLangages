@@ -25,7 +25,12 @@ int main(int argc, char *argv[])
 
     cout << "Analyse de la chaine : " << chaine << endl;
 
-    automate->run();
+    if (!automate->run())
+    {
+        delete l;
+        delete automate;
+        return 1;
+    }
 
     Expr* expressionFinale = (Expr*) automate->popSymbol();
 

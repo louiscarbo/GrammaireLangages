@@ -8,13 +8,20 @@ class Automate;
 
 using namespace std;
 
+enum class TransitionResult
+{
+    Continue,
+    Accept,
+    Error
+};
+
 class Etat
 {
 public:
     Etat(string name);
     virtual ~Etat();
     void print() const;
-    virtual bool transition(Automate &automate,
+    virtual TransitionResult transition(Automate &automate,
                             Symbole *s) = 0;
 
 protected:

@@ -10,23 +10,23 @@
 #include "E9.h"
 #include "../automate.h"
 
-bool E6::transition(Automate & automate, Symbole * s) {
+TransitionResult E6::transition(Automate & automate, Symbole * s) {
     switch (*s)
     {
 
     case PLUS:
         automate.decalage(s, new E4);
-        return true;
+        return TransitionResult::Continue;
 
     case MULT:
         automate.decalage(s, new E5);
-        return true;
+        return TransitionResult::Continue;
 
     case CLOSEPAR:
         automate.decalage(s, new E9);
-        return true;
+        return TransitionResult::Continue;
 
     default:
-        return false;
+        return TransitionResult::Error;
     }
 }

@@ -52,14 +52,19 @@ void Automate::popAndDestroySymbol()
 
 bool Automate::run()
 {
-    bool nextState = true;
-    while (nextState)
+    while (true)
     {
         Symbole *s = lexer->Consulter();
-
         Etat *currentState = this->statestack.back();
+        TransitionResult result = currentState->transition(*this, s);
 
-        nextState = currentState->transition(*this, s);
+        if (result == TransitionResult::Accept)
+        {
+            return true;
+        }
+        if (result == TransitionResult::Error)
+        {
+            return false;
+        }
     }
-    return true;
 }
